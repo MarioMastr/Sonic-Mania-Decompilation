@@ -7,3 +7,4 @@
 [submodule "dependencies/RSDKv5"]
 	path = dependencies/RSDKv5
 	url = https://github.com/MarioMastr/RSDKv5-Decompilation
+	branch = master
