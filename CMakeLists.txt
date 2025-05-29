@@ -3,6 +3,10 @@ project(SonicMania)
 
 option(WITH_RSDK "Whether or not to build with RSDKv5. Defaults to true" ON)
 
+if (APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
+endif()
+
 if(NOT DEFINED GAME_STATIC)
     if(WIN32)
         set(GAME_STATIC OFF)
