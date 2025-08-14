@@ -83,7 +83,7 @@ else()
     set(RETRO_REVISION 2 CACHE STRING "What revision to compile for. Defaults to v5U = 3")
 
     option(RETRO_MOD_LOADER "Enables or disables the mod loader." ON)
-    set(RETRO_MOD_LOADER_VER 2 CACHE STRING "Sets the mod loader version. Defaults to latest")
+    set(RETRO_MOD_LOADER_VER 3 CACHE STRING "Sets the mod loader version. Defaults to latest")
 
     target_compile_definitions(${GAME_NAME} PRIVATE
         RETRO_REVISION=${RETRO_REVISION}
@@ -97,4 +97,19 @@ else()
         MANIA_FIRST_RELEASE=$<BOOL:${MANIA_FIRST_RELEASE}>
         GAME_VERSION=${GAME_VERSION}
     )
+endif()
+
+# MSVC likes to merge similar functions together even though their addresses are being referenced.
+# Disable COMDAT folding to fix some bugs like not drowning when suspended to a pull chain in HCZ.
+if(MSVC)
+    target_link_options(${GAME_NAME} PRIVATE /OPT:NOICF)
+endif()
+
+# ModAPI: Prevent function inlining so that public functions can be hooked properly
+if(RETRO_MOD_LOADER)
+    if(MSVC)
+        target_compile_options(${GAME_NAME} PRIVATE /Ob0)
+    else() # GCC/Clang
+        target_compile_options(${GAME_NAME} PRIVATE -fno-inline)
+    endif()
 endif()
