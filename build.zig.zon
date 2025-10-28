@@ -1,0 +1,13 @@
+.{
+    .name = .Sonic_Mania_Decompilation,
+    .version = "1.1.0",
+    .fingerprint = 0x96715e99c4ba5615,
+    .minimum_zig_version = "0.15.1",
+    .dependencies = .{},
+    .paths = .{
+        "SonicMania",
+        "build.zig",
+        "build.zig.zon",
+        "README.md",
+    },
+}

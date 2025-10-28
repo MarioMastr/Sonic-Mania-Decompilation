@@ -247,3 +247,7 @@ android/local.properties
 
 *.res
 dependencies/*
+
+# Zig generated files and folders
+.zig-cache/
+zig-out/
