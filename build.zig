@@ -42,11 +42,11 @@ pub fn build(b: *std.Build) !void {
 
     const add = b.addOptions();
     add.addOption(u8, "retro_revision", retroRevision);
-    add.addOption(u8, "retro_use_mod_loader", retroUseModLoader);
+    add.addOption(bool, "retro_use_mod_loader", retroUseModLoader);
     add.addOption(u8, "retro_mod_loader_ver", retroModLoaderVer);
-    add.addOption(u8, "game_include_editor", gameIncludeEditor);
-    add.addOption(u8, "mania_pre_plus", maniaPrePlus);
-    add.addOption(u8, "mania_first_release", maniaFirstRelease);
+    add.addOption(bool, "game_include_editor", gameIncludeEditor);
+    add.addOption(bool, "mania_pre_plus", maniaPrePlus);
+    add.addOption(bool, "mania_first_release", maniaFirstRelease);
 
     const selectedOptions = Options {
         .RETRO_REVISION = retroRevision,
