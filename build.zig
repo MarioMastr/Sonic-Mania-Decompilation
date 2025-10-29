@@ -33,7 +33,7 @@ pub fn build(b: *std.Build) !void {
         maniaPrePlus = b.option(bool, "mania_pre_plus", "Whether or not to build Mania pre-plus. Defaults to false") orelse false;
     }
 
-    var GAME_VERSION: comptime_int = undefined;
+    var GAME_VERSION: u8 = undefined;
     if (!maniaPrePlus) {
         GAME_VERSION = 6;
     } else {
@@ -89,13 +89,16 @@ pub fn build(b: *std.Build) !void {
     var retroRevisionBuffer: [1]u8 = undefined;
     _ = try std.fmt.bufPrint(&retroRevisionBuffer, "{}", .{selectedOptions.RETRO_REVISION});
 
+    var gameVersionBuffer: [1]u8 = undefined;
+    _ = try std.fmt.bufPrint(&gameVersionBuffer, "{}", .{GAME_VERSION});
+
     lib.root_module.addCMacro("RETRO_REVISION", &retroRevisionBuffer);
     lib.root_module.addCMacro("RETRO_USE_MOD_LOADER", std.fmt.comptimePrint("{}", .{selectedOptions.RETRO_USE_MOD_LOADER}));
     lib.root_module.addCMacro("RETRO_MOD_LOADER_VER", std.fmt.comptimePrint("{}", .{selectedOptions.RETRO_MOD_LOADER_VER}));
     lib.root_module.addCMacro("GAME_INCLUDE_EDITOR", std.fmt.comptimePrint("{}", .{selectedOptions.GAME_INCLUDE_EDITOR}));
     lib.root_module.addCMacro("MANIA_PREPLUS", std.fmt.comptimePrint("{}", .{selectedOptions.MANIA_PREPLUS}));
     lib.root_module.addCMacro("MANIA_FIRST_RELEASE", std.fmt.comptimePrint("{}", .{selectedOptions.MANIA_FIRST_RELEASE}));
-    lib.root_module.addCMacro("GAME_VERSION", std.fmt.comptimePrint("{}", .{GAME_VERSION}));
+    lib.root_module.addCMacro("GAME_VERSION", &gameVersionBuffer);
 
     lib.linkLibC();
     b.installArtifact(lib);
