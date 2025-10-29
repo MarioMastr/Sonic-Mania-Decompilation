@@ -93,7 +93,7 @@ pub fn build(b: *std.Build) !void {
     _ = try std.fmt.bufPrint(&gameVersionBuffer, "{}", .{GAME_VERSION});
 
     lib.root_module.addCMacro("RETRO_REVISION", &retroRevisionBuffer);
-    lib.root_module.addCMacro("RETRO_USE_MOD_LOADER", std.fmt.comptimePrint("{}", .{selectedOptions.RETRO_USE_MOD_LOADER}));
+    lib.root_module.addCMacro("RETRO_USE_MOD_LOADER", std.fmt.comptimePrint("{}", .{retroUseModLoader}));
     lib.root_module.addCMacro("RETRO_MOD_LOADER_VER", std.fmt.comptimePrint("{}", .{selectedOptions.RETRO_MOD_LOADER_VER}));
     lib.root_module.addCMacro("GAME_INCLUDE_EDITOR", std.fmt.comptimePrint("{}", .{selectedOptions.GAME_INCLUDE_EDITOR}));
     lib.root_module.addCMacro("MANIA_PREPLUS", std.fmt.comptimePrint("{}", .{selectedOptions.MANIA_PREPLUS}));
