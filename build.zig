@@ -90,19 +90,19 @@ pub fn build(b: *std.Build) !void {
     _ = try std.fmt.bufPrint(&retroRevBuf, "{}", .{selectedOptions.RETRO_REVISION});
 
     var modLoaderBuf: [1]u8 = undefined;
-    _ = try std.fmt.bufPrint(&modLoaderBuf, "{}", .{selectedOptions.RETRO_USE_MOD_LOADER});
+    _ = try std.fmt.bufPrint(&modLoaderBuf, "{}", .{@intFromBool(selectedOptions.RETRO_USE_MOD_LOADER)});
 
     var modVerBuf: [1]u8 = undefined;
     _ = try std.fmt.bufPrint(&modVerBuf, "{}", .{selectedOptions.RETRO_MOD_LOADER_VER});
 
     var editorBuf: [1]u8 = undefined;
-    _ = try std.fmt.bufPrint(&editorBuf, "{}", .{selectedOptions.GAME_INCLUDE_EDITOR});
+    _ = try std.fmt.bufPrint(&editorBuf, "{}", .{@intFromBool(selectedOptions.GAME_INCLUDE_EDITOR)});
 
     var prePlusBuf: [1]u8 = undefined;
-    _ = try std.fmt.bufPrint(&prePlusBuf, "{}", .{selectedOptions.MANIA_PREPLUS});
+    _ = try std.fmt.bufPrint(&prePlusBuf, "{}", .{@intFromBool(selectedOptions.MANIA_PREPLUS)});
 
     var firstRelBuf: [1]u8 = undefined;
-    _ = try std.fmt.bufPrint(&firstRelBuf, "{}", .{selectedOptions.MANIA_FIRST_RELEASE});
+    _ = try std.fmt.bufPrint(&firstRelBuf, "{}", .{@intFromBool(selectedOptions.MANIA_FIRST_RELEASE)});
 
     var gameVerBuf: [1]u8 = undefined;
     _ = try std.fmt.bufPrint(&gameVerBuf, "{}", .{GAME_VERSION});
