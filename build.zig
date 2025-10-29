@@ -86,19 +86,34 @@ pub fn build(b: *std.Build) !void {
         lib.root_module.addCMacro("_CRT_SECURE_NO_WARNINGS", "1");
     }
 
-    var retroRevisionBuffer: [1]u8 = undefined;
-    _ = try std.fmt.bufPrint(&retroRevisionBuffer, "{}", .{selectedOptions.RETRO_REVISION});
+    var retroRevBuf: [1]u8 = undefined;
+    _ = try std.fmt.bufPrint(&retroRevBuf, "{}", .{selectedOptions.RETRO_REVISION});
 
-    var gameVersionBuffer: [1]u8 = undefined;
-    _ = try std.fmt.bufPrint(&gameVersionBuffer, "{}", .{GAME_VERSION});
+    var modLoaderBuf: [1]u8 = undefined;
+    _ = try std.fmt.bufPrint(&modLoaderBuf, "{}", .{selectedOptions.RETRO_USE_MOD_LOADER});
 
-    lib.root_module.addCMacro("RETRO_REVISION", &retroRevisionBuffer);
-    lib.root_module.addCMacro("RETRO_USE_MOD_LOADER", std.fmt.comptimePrint("{}", .{selectedOptions.RETRO_USE_MOD_LOADER}));
-    lib.root_module.addCMacro("RETRO_MOD_LOADER_VER", std.fmt.comptimePrint("{}", .{selectedOptions.RETRO_MOD_LOADER_VER}));
-    lib.root_module.addCMacro("GAME_INCLUDE_EDITOR", std.fmt.comptimePrint("{}", .{selectedOptions.GAME_INCLUDE_EDITOR}));
-    lib.root_module.addCMacro("MANIA_PREPLUS", std.fmt.comptimePrint("{}", .{selectedOptions.MANIA_PREPLUS}));
-    lib.root_module.addCMacro("MANIA_FIRST_RELEASE", std.fmt.comptimePrint("{}", .{selectedOptions.MANIA_FIRST_RELEASE}));
-    lib.root_module.addCMacro("GAME_VERSION", &gameVersionBuffer);
+    var modVerBuf: [1]u8 = undefined;
+    _ = try std.fmt.bufPrint(&modVerBuf, "{}", .{selectedOptions.RETRO_MOD_LOADER_VER});
+
+    var editorBuf: [1]u8 = undefined;
+    _ = try std.fmt.bufPrint(&editorBuf, "{}", .{selectedOptions.GAME_INCLUDE_EDITOR});
+
+    var prePlusBuf: [1]u8 = undefined;
+    _ = try std.fmt.bufPrint(&prePlusBuf, "{}", .{selectedOptions.MANIA_PREPLUS});
+
+    var firstRelBuf: [1]u8 = undefined;
+    _ = try std.fmt.bufPrint(&firstRelBuf, "{}", .{selectedOptions.MANIA_FIRST_RELEASE});
+
+    var gameVerBuf: [1]u8 = undefined;
+    _ = try std.fmt.bufPrint(&gameVerBuf, "{}", .{GAME_VERSION});
+
+    lib.root_module.addCMacro("RETRO_REVISION", &retroRevBuf);
+    lib.root_module.addCMacro("RETRO_USE_MOD_LOADER", &modLoaderBuf);
+    lib.root_module.addCMacro("RETRO_MOD_LOADER_VER", &modVerBuf);
+    lib.root_module.addCMacro("GAME_INCLUDE_EDITOR", &editorBuf);
+    lib.root_module.addCMacro("MANIA_PREPLUS", &prePlusBuf);
+    lib.root_module.addCMacro("MANIA_FIRST_RELEASE", &firstRelBuf);
+    lib.root_module.addCMacro("GAME_VERSION", &gameVerBuf);
 
     lib.linkLibC();
     b.installArtifact(lib);
