@@ -20,25 +20,13 @@ pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const retroRevision       = b.option(u8,   "retro_revision",       "What revision to compile for. Defaults to v5U = 3")                orelse 3;
+    const retroRevision     = b.option(u8,   "retro_revision",       "What revision to compile for. Defaults to v5U = 3")                orelse 3;
     const retroModLoader    = b.option(bool, "retro_mod_loader",     "Enables or disables the mod loader.")                              orelse false;
-    const retroModLoaderVer   = b.option(u8,   "retro_mod_loader_ver", "Sets the mod loader version. Defaults to latest")                  orelse 2;
+    const retroModLoaderVer = b.option(u8,   "retro_mod_loader_ver", "Sets the mod loader version. Defaults to latest")                  orelse 2;
     const gameIncludeEditor = b.option(bool, "game_include_editor",  "Whether or not to include editor functions. Defaults to true")     orelse true;
     const maniaFirstRelease = b.option(bool, "mania_first_release",  "Whether or not to build Mania's first release. Defaults to false") orelse false;
-
-    var maniaPrePlus: bool = undefined;
-    if (maniaFirstRelease) {
-        maniaPrePlus = true;
-    } else {
-        maniaPrePlus              = b.option(bool, "mania_pre_plus",       "Whether or not to build Mania pre-plus. Defaults to false")        orelse false;
-    }
-
-    var GAME_VERSION: u8 = undefined;
-    if (!maniaPrePlus) {
-        GAME_VERSION = 6;
-    } else {
-        GAME_VERSION = 3;
-    }
+    const maniaPrePlus      = if (maniaFirstRelease) true else b.option(bool, "mania_pre_plus", "Whether or not to build Mania pre-plus. Defaults to false") orelse false;
+    const GAME_VERSION      = if (!maniaPrePlus) 6 else 3;
 
     const add = b.addOptions();
     add.addOption(u8,   "retro_revision",       retroRevision);
