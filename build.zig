@@ -14,7 +14,7 @@ pub fn build(b: *std.Build) !void {
     const GAME_INCLUDE_EDITOR  = b.option(bool, "game_include_editor",  "Whether or not to include editor functions. Defaults to true")     orelse true;
     const MANIA_FIRST_RELEASE  = b.option(bool, "mania_first_release",  "Whether or not to build Mania's first release. Defaults to false") orelse false;
     const MANIA_PREPLUS        = if (MANIA_FIRST_RELEASE) true else b.option(bool, "mania_pre_plus", "Whether or not to build Mania pre-plus. Defaults to false") orelse false;
-    const GAME_VERSION: u8     = if (!MANIA_PREPLUS) 6 else 3;
+    const GAME_VERSION: u8     = if (MANIA_PREPLUS) 3 else 6;
 
     const add = b.addOptions();
     add.addOption(u8,   "retro_revision",       RETRO_REVISION);
