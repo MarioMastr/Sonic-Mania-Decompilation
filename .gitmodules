@@ -1,4 +1,4 @@
 [submodule "dependencies/RSDKv5"]
 	path = dependencies/RSDKv5
 	url = https://github.com/MarioMastr/RSDKv5-Decompilation
-	branch = SDL3
+	branch = SDL3-fetchcontent
