@@ -1,6 +1,6 @@
 [submodule "dependencies/RSDKv5"]
 	path = dependencies/RSDKv5
-	url = https://github.com/RSDKModding/RSDKv5-Decompilation
+	url = https://github.com/MarioMastr/RSDKv5-Decompilation
 [submodule "dependencies/RSDKv5-GameAPI"]
 	path = dependencies/RSDKv5-GameAPI
 	url = https://github.com/RSDKModding/RSDKv5-GameAPI
